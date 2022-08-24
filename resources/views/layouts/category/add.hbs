@@ -1,0 +1,52 @@
+<div class="category-add">
+    <h3 class='text-center mb-3'>Thêm loại sản phẩm</h3>
+    <form action="/category/store-add" method="post" style='width:40%;' class='mx-auto form-add'>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/category' class='btn btn-primary small'>Danh sách loại sản phẩm</a>
+            </div>
+            <div>
+                <a href="/category/add" class="btn btn-success small">Reset</a>
+            </div>
+        </div>
+        <div class='mb-3'>
+            <label class='form-label  fw-bold'>Tên loại</label>
+            <input type='text' name='name' class='form-control' value="{{#if data.name}}{{data.name}}{{/if}}"/>
+            {{#if error}}
+                <div class='form-error'>{{error}}</div>
+            {{/if}}
+        </div>
+        <div class='mb-1 row'>
+            <label class="form-label mb-1 fw-bold">Danh mục</label>
+            <div class="col-2">
+                <label class="form-label">Nam</label>
+                <input type="radio" name="category" value="male" class="form-check-input">
+            </div>
+            <div class="col-2">
+                <label class="form-label">Nữ</label>
+                <input type="radio" name="category" value="famale" class="form-check-input">
+            </div>
+            <div class="col-2">
+                <label class="form-label">Trẻ em</label>
+                <input type="radio" name="category" value="children" class="form-check-input">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Hiển thị trên thanh điều hướng</label>
+                <input type="radio" name="category" value="navigation" class="form-check-input">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Nổi bật</label>
+            <input type="checkbox" class="form-check-input" name="isPopular">
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Thêm loại sản phẩm</button>
+        </div>
+    </form>
+</div>

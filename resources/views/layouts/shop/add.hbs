@@ -1,0 +1,65 @@
+<div class="shop">
+    <h3 class='text-center mb-3'>Thêm cửa hàng</h3>
+    <form action="/shop/store-add" method="post" style='width:60%;' class='mx-auto form-add'>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/shop' class='btn btn-primary small'>Danh sách cửa hàng</a>
+            </div>
+            <div>
+                <a href="/shop/add" class="btn btn-success small">Reset</a>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Tên cửa hàng</label>
+                <input type='text' name='shopName' class='form-control' value="{{#if data.shopName}}{{data.shopName}}{{/if}}"/>
+                {{#if errors.shopName}}
+                    <div class='form-error'>{{errors.shopName}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-3 col-6'>
+                <label class='form-label  fw-bold'>Số điện thoại cửa hàng</label>
+                <input type='text' name='phone' class='form-control' value="{{#if data.phone}}{{data.phone}}{{/if}}"/>
+                {{#if errors.phone}}
+                    <div class='form-error'>{{errors.phone}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-3 col-6'>
+                <label class='form-label  fw-bold'>Tỉnh thành</label>
+                <select name="province" class="form-select">
+                    <option value="">-Chọn--</option>
+                    {{#each provinces}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+                {{#if errors.province}}
+                    <div class='form-error'>{{errors.province}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Địa chỉ cửa hàng</label>
+                <input type='text' name='address' class='form-control' value="{{#if data.address}}{{data.address}}{{/if}}"/>
+                {{#if errors.address}}
+                    <div class='form-error'>{{errors.address}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Link google map</label>
+                <textarea name="linkMap" class='form-control' cols="30" rows="5"
+                >{{#if data.linkMap}}{{data.linkMap}}{{/if}}</textarea>
+                {{#if errors.linkMap}}
+                    <div class='form-error'>{{errors.linkMap}}</div>
+                {{/if}}
+            </div>
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Thêm cửa hàng</button>
+        </div>
+    </form>
+</div>

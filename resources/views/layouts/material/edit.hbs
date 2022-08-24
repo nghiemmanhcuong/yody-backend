@@ -1,0 +1,20 @@
+<div class="category-add">
+    <h3 class='text-center mb-3'>Thêm chất liệu</h3>
+    <form action="/material/store-edit/{{material._id}}?_method=PUT" method="post" style='width:40%;' class='mx-auto form-add'>
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/material' class='btn btn-success small'>Danh sách chất liệu</a>
+            </div>
+        </div>
+        <div class='mb-3'>
+            <label class='form-label  fw-bold'>Tên chất liệu</label>
+            <input type='text' name='name' class='form-control' value="{{#if material.name}}{{material.name}}{{/if}}"/>
+            {{#if error}}
+                <div class='form-error'>{{error}}</div>
+            {{/if}}
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Lưu chỉnh sửa</button>
+        </div>
+    </form>
+</div>

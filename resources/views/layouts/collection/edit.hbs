@@ -1,0 +1,36 @@
+<div class="collection-add">
+    <h3 class='text-center mb-3'>Thêm bộ sưu tập</h3>
+    <form action="/collection/store-edit/{{collection._id}}?_method=PUT" 
+        method="post" enctype="multipart/form-data" style='width:40%;' class='mx-auto form-add'>
+        {{#if error}}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/collection' class='btn btn-success small'>Quay lại</a>
+            </div>
+        </div>
+        <div class='mb-3'>
+            <label class='form-label  fw-bold'>Tên bộ sưu tập</label>
+            <input type='text' name='name' class='form-control' value="{{#if collection.name}}{{collection.name}}{{/if}}"/>
+            {{#if errors.name}}
+                <div class='form-error'>{{errors.name}}</div>
+            {{/if}}
+        </div>
+        <div class='mb-3'>
+            <label class='form-label  fw-bold'>Ảnh bộ sưu tập</label>
+            <input type="file" name="image" class="form-control">
+            {{#if errors.image}}
+                <div class='form-error'>{{errors.image}}</div>
+            {{/if}}
+            <img class='mt-2' src="/{{collection.image}}" height="80">
+        </div>
+        <input type="hidden" value="{{collection.image}}" name="img">
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Lưu chỉnh sửa</button>
+        </div>
+    </form>
+</div>

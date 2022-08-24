@@ -1,0 +1,92 @@
+<div class='order-detail'>
+    <h3 class='text-center mb-3'>Chi tiết đơn hàng</h3>
+    <div>
+        <a href='/order' class='btn btn-success mb-2'>
+            <i class="bi bi-arrow-left"></i>
+            Quay lại
+        </a>
+    </div>
+    <table class='table table-success'>
+        <thead>
+            <tr>
+                <th class='text-center border border-dark'>Ngày mua</th>
+                <th class='text-center border border-dark'>Họ và tên</th>
+                <th class='text-center border border-dark'>Số điện thoại</th>
+                <th class='text-center border border-dark'>Địa chỉ</th>
+                <th class='text-center border border-dark'>Giá trị đơn hàng</th>
+                <th class='text-center border border-dark'>Phương thức vận chuyển</th>
+                <th class='text-center border border-dark'>Trạng thái thanh toán</th>
+                <th class='text-center border border-dark'>Trạng thái vận chuyển</th>
+                <th class='text-center border border-dark'>Thông tin thêm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class='text-center border border-dark' height='100' width='10%'>{{makeDate
+                        order.createdAt
+                    }}</td>
+                <td class='text-center border border-dark' height='100'>{{order.name}}</td>
+                <td class='text-center border border-dark' height='100'>{{order.phone}}</td>
+                <td class='text-center border border-dark' height='100'>{{order.address}}
+                    ({{order.wards}}
+                    -
+                    {{order.district}}
+                    -
+                    {{order.province}})</td>
+                <td class='text-center border border-dark' height='100'>{{number_with_comas
+                        order.totalPrice
+                    }}<sup>đ</sup></td>
+                <td class='text-center border border-dark' height='100'>{{order.paymentMethod}}</td>
+                <td class='text-center border border-dark' height='100'>{{number_with_comas
+                        order.status.payment
+                    }}</td>
+                <td
+                    class='text-center border border-dark'
+                    height='100'
+                >{{order.status.transport}}</td>
+                <td class='text-center border border-dark' height='100'>{{order.noteMessage}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 class='text-center mb-3'>Sản phẩm trong đơn hàng</h3>
+    <table class='table table-success'>
+        <thead>
+            <tr>
+                <th class='text-center border border-dark'>Tên sản phẩm</th>
+                <th class='text-center border border-dark'>Ảnh sản phẩm</th>
+                <th class='text-center border border-dark'>Giá sản phẩm</th>
+                <th class='text-center border border-dark'>Màu sắc</th>
+                <th class='text-center border border-dark'>Kích cỡ</th>
+                <th class='text-center border border-dark'>Số lượng</th>
+                <th class='text-center border border-dark'>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each order.products}}
+                <tr>
+                    <td class='text-center border border-dark'>{{this.name}}</td>
+                    <td class='text-center border border-dark' width='6%'>
+                        <img
+                            src='/{{this.image}}'
+                            width='50'
+                            height='60'
+                            style='object-fit: cover;'
+                        />
+                    </td>
+                    <td class='text-center border border-dark'>
+                        {{#number_with_comas this.price}}{{/number_with_comas}}<sup>đ</sup>
+                    </td>
+                    <td class='text-center border border-dark'>{{this.color}}</td>
+                    <td class='text-center border border-dark'>{{this.size}}</td>
+                    <td class='text-center border border-dark'>{{this.quantity}}</td>
+                    <td class='text-center border border-dark'>
+                        {{#number_with_comas_core
+                            this.price
+                            this.quantity
+                        }}{{/number_with_comas_core}}<sup>đ</sup>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>

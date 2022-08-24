@@ -1,0 +1,68 @@
+<div class="category-add">
+    <h3 class='text-center mb-3'>Sửa loại sản phẩm</h3>
+    <form action="/category/store-edit/{{category._id}}?_method=PUT" method="post" style='width:40%;' class='mx-auto form-add'>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/category' class='btn btn-primary small'>
+                    <i class="bi bi-arrow-left"></i>    
+                    Quay lại
+                </a>
+            </div>
+        </div>
+        <div class='mb-3'>
+            <label class='form-label'>Tên loại</label>
+            <input type='text' name='name' class='form-control' value="{{category.name}}"/>
+            {{#if error}}
+                <div class='form-error'>{{error}}</div>
+            {{/if}}
+        </div>
+        <div class='mb-3 row'>
+            <label class="form-label mb-1 fw-bold">Danh mục</label>
+            <div class="col-2">
+                <label class="form-label">Nam</label>
+                <input {{#iq category.category 'male'}}checked{{/iq}} type="radio" name="category" value="male" class="form-check-input">
+            </div>
+            <div class="col-2">
+                <label class="form-label">Nữ</label>
+                <input {{#iq category.category 'famale'}}checked{{/iq}} type="radio" name="category" value="famale" class="form-check-input">
+            </div>
+            <div class="col-2">
+                <label class="form-label">Trẻ em</label>
+                <input {{#iq category.category 'children'}}checked{{/iq}} type="radio" name="category" value="children" class="form-check-input">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Hiển thị trên thanh điều hướng</label>
+                <input {{#iq category.category 'navigation'}}checked{{/iq}} type="radio" name="category" value="navigation" class="form-check-input">
+            </div>
+        </div>
+        {{#if type}}
+        <div class='row'>
+            <div class='col-2'>
+                <label class="form-label">Hot</label>
+                <input type="checkbox" class="form-check-input" name="hot">
+            </div>
+            <div class='col-2'>
+                <label class="form-label">Sale</label>
+                <input type="checkbox" class="form-check-input" name="sale">
+            </div>
+            <div class='col-2'>
+                <label class="form-label">New</label>
+                <input type="checkbox" class="form-check-input" name="new">
+            </div>
+        </div>
+        {{/if}}
+        <div class="mb-3">
+            <label class="form-label fw-bold">Nổi bật</label>
+            <input type="checkbox" {{#if category.isPopular}}checked{{/if}} class="form-check-input" name="isPopular">
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-success'>Lưu chỉnh sửa</button>
+        </div>
+    </form>
+</div>

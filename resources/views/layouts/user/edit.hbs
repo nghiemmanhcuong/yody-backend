@@ -1,0 +1,64 @@
+<div class='user-add'>
+    <h3 class='text-center mb-3'>Sửa người dùng</h3>
+    <form method='post' action='/user/store-edit/{{user._id}}?_method=PUT' style='width:45%;' class='mx-auto form-add'>
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/user' class='btn btn-success small'>
+                    <i class="bi bi-arrow-left"></i>
+                    Danh sách người dùng
+                </a>
+            </div>
+        </div>
+        {{#if error}}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='row'>
+            <div class='mb-3 col-6'>
+                <label class='form-label'>Họ và tên đệm</label>
+                <input type='text' name='surname' class='form-control' value="{{#if user.surname}}{{user.surname}}{{/if}}"/>
+                {{#if errors.surname}}
+                    <div class='form-error'>{{errors.surname}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-3 col-6'>
+                <label class='form-label'>Tên</label>
+                <input type='text' name='name' class='form-control' value="{{#if user.name}}{{user.name}}{{/if}}"/>
+                {{#if errors.name}}
+                    <div class='form-error'>{{errors.name}}</div>
+                {{/if}}
+            </div>
+        </div>
+        <div class='mb-3'>
+            <label class='form-label'>Số điện thoại</label>
+            <input type='text' name='phone' class='form-control' value="{{#if user.phone}}{{user.phone}}{{/if}}"/>
+            {{#if errors.phone}}
+                <div class='form-error'>{{errors.phone}}</div>
+            {{/if}}
+        </div>
+        <div class='mb-3'>
+            <label class='form-label'>Email</label>
+            <input type='text' name='email' class='form-control' value="{{#if user.email}}{{user.email}}{{/if}}"/>
+            {{#if errors.email}}
+                <div class='form-error'>{{errors.email}}</div>
+            {{/if}}
+        </div>
+        <div class='mb-3'>
+            <label class='form-label'>Quyền truy cập</label>
+            <select name='access' class='form-select'>
+                <option value=''>--Chọn--</option>
+                <option {{#iq user.access 'user'}} selected {{/iq}} value='user'>Người dùng</option>
+                <option {{#iq user.access 'saff'}} selected {{/iq}} value='saff'>Nhân viên</option>
+                <option {{#iq user.access 'admin'}} selected {{/iq}} value='admin'>Quản trị viên</option>
+            </select>
+            {{#if errors.access}}
+                <div class='form-error'>{{errors.access}}</div>
+            {{/if}}
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Lưu chỉnh sửa</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,29 @@
+<div class="category-add">
+    <h3 class='text-center mb-3'>Thêm danh mục bài viết</h3>
+    <form action="/blog-category/store-add" method="post" style='width:40%;' class='mx-auto form-add'>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/blog-category' class='btn btn-primary small'>Danh sách danh mục bài viết</a>
+            </div>
+            <div>
+                <a href="/blog-category/add" class="btn btn-success small">Reset</a>
+            </div>
+        </div>
+        <div class='mb-3'>
+            <label class='form-label  fw-bold'>Tên mục bài viết</label>
+            <input type='text' name='name' class='form-control' value="{{#if name}}{{name}}{{/if}}"/>
+            {{#if error}}
+                <div class='form-error'>{{error}}</div>
+            {{/if}}
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Thêm danh mục bài viết</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,55 @@
+<div class="category-add">
+    <h3 class='text-center mb-3'>Thông tin YODY</h3>
+    <form action="/info/store-edit?_method=PUT" method="post" style='width:60%;' class='mx-auto form-add'>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        {{#if error}}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class="row">
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Tên công ty</label>
+                <input type='text' name='companyName' class='form-control' value="{{#if infos.companyName}}{{infos.companyName}}{{/if}}"/>
+            </div>
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Địa chỉ chính</label>
+                <input type='text' name='address' class='form-control' value="{{#if infos.address}}{{infos.address}}{{/if}}"/>
+            </div>
+            <div class='mb-3 col-6'>
+                <label class='form-label  fw-bold'>Đường dây nóng</label>
+                <input type='text' name='hotline' class='form-control' value="{{#if infos.hotline}}{{infos.hotline}}{{/if}}"/>
+            </div>
+            <div class='mb-3 col-6'>
+                <label class='form-label  fw-bold'>Liên hệ đặt hàng</label>
+                <input type='text' name='phoneOrder' class='form-control' value="{{#if infos.phoneOrder}}{{infos.phoneOrder}}{{/if}}"/>
+            </div>
+            <div class='mb-3 col-6'>
+                <label class='form-label  fw-bold'>Thắc mắc đơn hàng</label>
+                <input type='text' name='phoneWonder' class='form-control' value="{{#if infos.phoneWonder}}{{infos.phoneWonder}}{{/if}}"/>
+            </div>
+            <div class='mb-3 col-6'>
+                <label class='form-label  fw-bold'>Góp ý khiếu nại</label>
+                <input type='text' name='phoneFeedback' class='form-control' value="{{#if infos.phoneFeedback}}{{infos.phoneFeedback}}{{/if}}"/>
+            </div>
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Mail chăm sóc khách hàng</label>
+                <input type='text' name='mailCustomerCare' class='form-control' value="{{#if infos.mailCustomerCare}}{{infos.mailCustomerCare}}{{/if}}"/>
+            </div>
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Câu slogan</label>
+                <textarea name="slogan" class="form-control" cols="30" rows="5"
+                >{{#if infos.slogan}}{{infos.slogan}}{{/if}}</textarea>
+            </div>
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Lưu chỉnh sửa</button>
+        </div>
+    </form>
+</div>

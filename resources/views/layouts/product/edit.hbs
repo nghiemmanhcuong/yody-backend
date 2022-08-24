@@ -1,0 +1,170 @@
+<div class="product-add">
+    <h3 class='text-center mb-3'>Sửa sản phẩm</h3>
+    <form action="/product/store-edit/{{product._id}}?_method=PUT" 
+        method="post" style='width:80%;' class='mx-auto form-add' enctype="multipart/form-data">
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/product' class='btn btn-success small'>
+                    <i class="bi bi-arrow-left"></i>
+                    Danh sách sản phẩm
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class='mb-2 col-6'>
+                <label class='form-label fw-bold small'>Tên sản phẩm</label>
+                <input type='text' name='name' class='form-control medium' value="{{product.name}}"/>
+                {{#if errors.name}}
+                    <div class='form-error'>{{errors.name}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class='form-label fw-bold small'>Loại sản phẩm</label>
+                <select name="category" class="form-select">
+                    <option value="">--Chọn--</option>
+                    {{#each categories}}
+                    <option {{#iq ../product.categoryId this._id}}selected{{/iq}} value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+                {{#if errors.category}}
+                    <div class='form-error'>{{errors.category}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class='form-label fw-bold small'>Bộ sưu tập</label>
+                <select name="collection" class="form-select">
+                    <option value="">--Chọn--</option>
+                    {{#each collections}}
+                    <option {{#iq ../product.collectionId this._id}}selected{{/iq}} value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class='mb-2 col-3'>
+                <label class="form-label fw-bold small">Giá thực</label>
+                <input type="text" class="form-control medium" name="real_price" value="{{product.price.real_price}}">
+                 {{#if errors.real_price}}
+                    <div class='form-error'>{{errors.real_price}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class="form-label fw-bold small">Giá sale</label>
+                <input type="text" class="form-control medium" name="sale_price" value="{{product.price.sale_price}}">
+                 {{#if errors.sale_price}}
+                    <div class='form-error'>{{errors.sale_price}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class="form-label fw-bold small">Sale</label>
+                <input type="text" class="form-control medium" name="sale_number" value="{{product.price.sale_number}}">
+                {{#if errors.sale_number}}
+                    <div class='form-error'>{{errors.sale_number}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-3">
+                <label class="form-label fw-bold small d-block">Chất liệu</label>
+                <select name="material" class="form-select">
+                    <option value="">--Chọn--</option>
+                    {{#each materials}}
+                    <option {{#iq ../product.material this._id}}selected{{/iq}} value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}   
+                </select>
+            </div>
+            <div class="mb-2 col-4">
+                <label class="form-label fw-bold small d-block">Kích cỡ áo</label>
+                <select name="size_shirts[]" class="selectpicker" multiple title="Kích cỡ áo">
+                    <option {{#in_array product.warehouse.sizes 'XS'}}selected{{/in_array}}>XS</option>
+                    <option {{#in_array product.warehouse.sizes 'S'}}selected{{/in_array}}>S</option>
+                    <option {{#in_array product.warehouse.sizes 'M'}}selected{{/in_array}}>M</option>
+                    <option {{#in_array product.warehouse.sizes 'L'}}selected{{/in_array}}>L</option>
+                    <option {{#in_array product.warehouse.sizes 'XL'}}selected{{/in_array}}>XL</option>
+                    <option {{#in_array product.warehouse.sizes '2XL'}}selected{{/in_array}}>2XL</option>
+                    <option {{#in_array product.warehouse.sizes '3XL'}}selected{{/in_array}}>3XL</option>
+                    <option {{#in_array product.warehouse.sizes '4XL'}}selected{{/in_array}}>4XL</option>
+                </select>
+                {{#if errors.size_shirts}}
+                    <div class='form-error'>{{errors.size_shirts}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-4">
+                <label class="form-label fw-bold small d-block">Kích cỡ quần</label>
+                <select name="size_trousers[]" class="selectpicker" multiple title="Kích cỡ quần">
+                    <option {{#in_array product.warehouse.sizes '28'}}selected{{/in_array}}>28</option>
+                    <option {{#in_array product.warehouse.sizes '29'}}selected{{/in_array}}>29</option>
+                    <option {{#in_array product.warehouse.sizes '30'}}selected{{/in_array}}>30</option>
+                    <option {{#in_array product.warehouse.sizes '31'}}selected{{/in_array}}>31</option>
+                    <option {{#in_array product.warehouse.sizes '32'}}selected{{/in_array}}>32</option>
+                    <option {{#in_array product.warehouse.sizes '33'}}selected{{/in_array}}>33</option>
+                    <option {{#in_array product.warehouse.sizes '34'}}selected{{/in_array}}>34</option>
+                </select>
+                {{#if errors.size_trousers}}
+                    <div class='form-error'>{{errors.size_trousers}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-4">
+                <label class="form-label fw-bold small d-block">Màu sắc</label>
+                <select name="colors[]" class="selectpicker" multiple title="Màu sắc">
+                    {{#each colors}}
+                    <option {{#in_array ../product.warehouse.colors this}}selected{{/in_array}}>{{this}}</option>
+                    {{/each}}
+                </select>
+                {{#if errors.colors}}
+                    <div class='form-error'>{{errors.colors}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-6">
+                <label class="form-label fw-bold small d-block">Thẻ title và url(tự động theo tên nếu để trống)</label>
+                <input type="text" name="seo_title" class="form-control medium" value="{{product.seo.title}}">
+            </div>
+            <div class="mb-2 col-6">
+                <label class="form-label fw-bold small d-block">Meta keywords( tự động theo title nếu để trống)</label>
+                <input type="text" name="seo_keywords" class="form-control medium" value="{{product.seo.metaKeyword}}">
+            </div>
+            <div class="mb-2 col-12">
+                <label class="form-label fw-bold small d-block">Meta description( tự động theo title nếu để trống)</label>
+                <textarea name="seo_description" class="form-control medium" cols="30" rows="2"
+                >{{product.seo.metaDescription}}</textarea>
+            </div>
+            <div class='mb-2 col-12'>
+                <label class="form-label fw-bold small">Mô tả sản phẩm</label>
+                <textarea name="description" class="form-control medium" cols="30" rows="5"
+                >{{product.description}}</textarea>
+            </div>
+            <div class='mb-2 col-12'>
+                <label class="form-label fw-bold small">Chi tiết sản phẩm</label>
+                <textarea name="detail" cols="30" rows="5"
+                >{{product.detail}}</textarea>
+                {{#if errors.detail}}
+                    <div class='form-error'>{{errors.detail}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-3 col-6'>
+                <label class="form-label fw-bold small">Ảnh chính sản phẩm</label>
+                <input type="file" name="image_main" class="form-control">
+                {{#if errors.image_main}}
+                    <div class='form-error'>{{errors.image_main}}</div>
+                {{/if}}
+                <img src="/{{#if product.image_main}}{{product.image_main}}{{/if}}" width="50">
+            </div>
+            <div class='mb-2 col-6 d-flex align-items-center'>
+                <label class="form-label fw-bold small me-1" style="margin-bottom:0;">Sản phẩm nổi bật</label>
+                <input type="checkbox" {{#if product.isPopular}}checked{{/if}} name="isPopular" class="form-check-input"  style="margin-top:0;">
+            </div>
+            <input type="hidden" name="image" value="{{#if product.image_main}}{{product.image_main}}{{/if}}">
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Lưu chỉnh sửa</button>
+        </div>
+    </form>
+</div>
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('detail');
+    CKEDITOR.replace('description');
+    $('select').selectpicker();
+</script>

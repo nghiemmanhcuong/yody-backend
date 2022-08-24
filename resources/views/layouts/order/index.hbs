@@ -1,0 +1,55 @@
+<div class='product'>
+    <h3 class='text-center mb-3'>Danh sách sản phẩm</h3>
+    {{#if success}}
+        <div class='alert alert-success position-relative' role='alert'>
+            {{success}}
+            <span class='close-alert position-absolute'><i class='bi bi-x-circle-fill'></i></span>
+        </div>
+    {{/if}}
+    <div class='d-flex justify-content-between mb-1'>
+        <div class='d-flex align-items-center'>
+            <div>
+                <a href='/order' class='btn btn-success small'>
+                    Làm mới
+                    <i class="bi bi-arrow-repeat"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <table class='table table-success'>
+        <thead>
+            <tr>
+                <th class='text-center border border-dark'>STT</th>
+                <th class='text-center border border-dark'>Ngày mua</th>
+                <th class='text-center border border-dark'>Địa chỉ</th>
+                <th class='text-center border border-dark'>Giá trị đơn hàng</th>
+                <th class='text-center border border-dark'>Trạng thái thanh toán</th>
+                <th class='text-center border border-dark'>Trạng thái vận chuyển</th>
+                <th class='text-center border border-dark'>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each orders}}
+                <tr>
+                    <td class='text-center border border-dark'>{{sum @index 1}}</td>
+                    <td class='text-center border border-dark'>{{makeDate this.createdAt}}</td>
+                    <td class='text-center border border-dark'>{{this.address}}</td>
+                    <td class='text-center border border-dark'>{{number_with_comas this.totalPrice}}<sup>đ</sup></td>
+                    <td class='text-center border border-dark'>{{number_with_comas this.status.payment}}<sup>đ</sup></td>
+                    <td class='text-center border border-dark'>{{this.status.transport}}</td>
+                    <td class='text-center border border-dark'>
+                        <a href='/order/detail/{{this._id}}' class='btn btn-primary small'>
+                            Chi tiết
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href='/order/change-status/{{this._id}}' class='btn btn-success small'>
+                            Thay đổi trạng thái
+                            <i class="bi bi-arrow-repeat"></i>
+                        </a>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{> pagination}}
+</div>

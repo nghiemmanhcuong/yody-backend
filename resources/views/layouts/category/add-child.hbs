@@ -1,0 +1,58 @@
+<div class="category-add">
+    <h3 class='text-center mb-3'>Thêm cấp con</h3>
+    <form action="/category/store-add-child" method="post" style='width:40%;' class='mx-auto form-add'>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/category' class='btn btn-primary small'>Quay lại</a>
+            </div>
+            <div>
+                <a href="/category/add-child" class="btn btn-success small">Reset</a>
+            </div>
+        </div>
+        <div class='mb-3'>
+            <label class='form-label'>Tên cấp con</label>
+            <input type='text' name='name' class='form-control' value="{{#if data.name}}{{data.name}}{{/if}}"/>
+            {{#if error}}
+                <div class='form-error'>{{error}}</div>
+            {{/if}}
+        </div>
+        <div class='row'>
+            <div class='col-2'>
+                <label class="form-label">Hot</label>
+                <input type="checkbox" class="form-check-input" name="hot">
+            </div>
+            <div class='col-2'>
+                <label class="form-label">Sale</label>
+                <input type="checkbox" class="form-check-input" name="sale">
+            </div>
+            <div class='col-2'>
+                <label class="form-label">New</label>
+                <input type="checkbox" class="form-check-input" name="new">
+            </div>
+        </div>
+        <div class="mb-2 col-12">
+            <label class="form-label fw-bold small d-block">Loại sản phẩm đang có</label>
+            <select name="categories[]" class="selectpicker" multiple title="Loại sản phẩm">
+                {{#each categories}}
+                <option value="{{this._id}}">{{this.name}}</option>
+                {{/each}}
+            </select>
+            {{#if errors.colors}}
+                <div class='form-error'>{{errors.colors}}</div>
+            {{/if}}
+        </div>
+        <input type="hidden" name="parentId" value="{{parentId}}">
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Thêm cấp con</button>
+        </div>
+    </form>
+</div>
+<script>
+    $('select').selectpicker();
+</script>

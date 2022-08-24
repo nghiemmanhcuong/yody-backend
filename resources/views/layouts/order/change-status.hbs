@@ -1,0 +1,36 @@
+<div class="category-add">
+    <h3 class='text-center mb-3'>Thay đổi trạng thái đơn hàng</h3>
+    <form action="/order/store-change-status?_method=PUT" method="post" style='width:45%;' class='mx-auto form-add'>
+        <div>
+            <a href='/order' class='btn btn-success small mb-2'>
+                <i class="bi bi-arrow-left"></i>
+                Quay lại
+            </a>
+        </div>
+        <div class="row">
+            <div class='mb-3'>
+                <label class='form-label  fw-bold'>Tên khách hàng</label>
+                <input type='text' name='' readonly class='form-control' value="{{order.name}}"/>
+            </div>
+            <div class='mb-3'>
+                <label class='form-label fw-bold'>Trạng thái vận chuyển</label>
+                <select name="statusTransport" class="form-select">
+                    <option {{#iq order.status.transport 'Chờ xác nhận'}}selected{{/iq}} value="Chờ xác nhận">Chờ xác nhận</option>
+                    <option {{#iq order.status.transport 'Đang vận chuyển'}}selected{{/iq}} value="Đang vận chuyển">Đang vận chuyển</option>
+                    <option {{#iq order.status.transport 'Đã nhận hàng'}}selected{{/iq}} value="Đã nhận hàng">Đã nhận hàng</option>
+                </select>
+            </div>
+            <div class='mb-3'>
+                <label class='form-label fw-bold'>Trạng thái thanh toán</label>
+                <select name="statusPayment" class="form-select">
+                    <option {{#iq order.status.payment 'Chưa thanh toán'}}selected{{/iq}} value="Chưa thanh toán">Chưa thanh toán</option>
+                    <option {{#iq order.status.payment 'Đã thanh toán'}}selected{{/iq}} value="Đã thanh toán">Đã thanh toán</option>
+                </select>
+            </div>
+        </div>
+        <input type="hidden" name="orderId" value="{{order._id}}">
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Lưu chỉnh sửa</button>
+        </div>
+    </form>
+</div>

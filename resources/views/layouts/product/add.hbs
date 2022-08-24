@@ -1,0 +1,180 @@
+<div class="product-add">
+    <h3 class='text-center mb-3'>Thêm sản phẩm</h3>
+    <form action="/product/store-add" method="post" style='width:80%;' class='mx-auto form-add' enctype="multipart/form-data">
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/product' class='btn btn-primary small'>
+                    <i class="bi bi-list-ul"></i>
+                    Danh sách sản phẩm
+                </a>
+            </div>
+            <div>
+                <a href="/product/add" class="btn btn-success small">
+                    <i class="bi bi-arrow-repeat"></i>
+                    Reset
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class='mb-2 col-6'>
+                <label class='form-label fw-bold small'>Tên sản phẩm</label>
+                <input type='text' name='name' class='form-control medium' value="{{#if data.name}}{{data.name}}{{/if}}"/>
+                {{#if errors.name}}
+                    <div class='form-error'>{{errors.name}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class='form-label fw-bold small'>Loại sản phẩm</label>
+                <select name="category" class="form-select medium">
+                    <option value="">--Chọn--</option>
+                    {{#each categories}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+                {{#if errors.category}}
+                    <div class='form-error'>{{errors.category}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class='form-label fw-bold small'>Bộ sưu tập</label>
+                <select name="collection" class="form-select medium">
+                    <option value="">--Chọn--</option>
+                    {{#each collections}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class='mb-2 col-3'>
+                <label class="form-label fw-bold small">Giá thực</label>
+                <input type="text" class="form-control medium" name="real_price" {{#if data.real_price}}{{data.real_price}}{{/if}}>
+                 {{#if errors.real_price}}
+                    <div class='form-error'>{{errors.real_price}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class="form-label fw-bold small">Giá sale</label>
+                <input type="text" class="form-control medium" name="sale_price" {{#if data.sale_price}}{{data.sale_price}}{{/if}}>
+                 {{#if errors.sale_price}}
+                    <div class='form-error'>{{errors.sale_price}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-3'>
+                <label class="form-label fw-bold small">Sale</label>
+                <input type="text" class="form-control medium" name="sale_number" {{#if data.sale_number}}{{data.sale_number}}{{/if}}>
+                {{#if errors.sale_number}}
+                    <div class='form-error'>{{errors.sale_number}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-3">
+                <label class="form-label fw-bold small">Chất liệu</label>
+                <select name="material" class="form-select medium">
+                    <option value="">--Chọn--</option>
+                    {{#each materials}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-2 col-4">
+                <label class="form-label fw-bold small d-block">Kích cỡ áo</label>
+                <select name="size_shirts[]" class="selectpicker" multiple title="Kích cỡ áo">
+                    <option>XS</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                    <option>2XL</option>
+                    <option>3XL</option>
+                    <option>4XL</option>
+                </select>
+                {{#if errors.size_shirts}}
+                    <div class='form-error'>{{errors.size_shirts}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-4">
+                <label class="form-label fw-bold small d-block">Kích cỡ quần</label>
+                <select name="size_trousers[]" class="selectpicker" multiple title="Kích cỡ quần">
+                    <option>28</option>
+                    <option>29</option>
+                    <option>30</option>
+                    <option>31</option>
+                    <option>32</option>
+                    <option>33</option>
+                    <option>34</option>
+                </select>
+                {{#if errors.size_trousers}}
+                    <div class='form-error'>{{errors.size_trousers}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-4">
+                <label class="form-label fw-bold small d-block">Màu sắc</label>
+                <select name="colors[]" class="selectpicker" multiple title="Màu sắc">
+                    {{#each colors}}
+                    <option>{{this}}</option>
+                    {{/each}}
+                </select>
+                {{#if errors.colors}}
+                    <div class='form-error'>{{errors.colors}}</div>
+                {{/if}}
+            </div>
+            <div class="mb-2 col-6">
+                <label class="form-label fw-bold small d-block">Thẻ title và url(tự động theo tên nếu để trống)</label>
+                <input type="text" name="seo_title" class="form-control medium" {{#if data.seo_title}}{{data.seo_title}}{{/if}}>
+            </div>
+            <div class="mb-2 col-6">
+                <label class="form-label fw-bold small d-block">Meta keywords( tự động theo title nếu để trống)</label>
+                <input type="text" name="seo_keywords" class="form-control medium" {{#if data.seo_keywords}}{{data.seo_keywords}}{{/if}}>
+            </div>
+            <div class="mb-2 col-12">
+                <label class="form-label fw-bold small d-block">Meta description( tự động theo title nếu để trống)</label>
+                <textarea name="seo_description" class="form-control medium" cols="30" rows="2"
+                >{{#if data.seo_description}}{{data.seo_description}}{{/if}}</textarea>
+            </div>
+            <div class='mb-2 col-12'>
+                <label class="form-label fw-bold small">Mô tả sản phẩm</label>
+                <textarea name="description" class="form-control medium" cols="30" rows="5"
+                >{{#if data.description}}{{data.description}}{{/if}}</textarea>
+            </div>
+            <div class='mb-2 col-12'>
+                <label class="form-label fw-bold small">Chi tiết sản phẩm</label>
+                <textarea name="detail" cols="30" rows="5"
+                >{{#if data.detail}}{{data.detail}}{{/if}}</textarea>
+                {{#if errors.detail}}
+                    <div class='form-error'>{{errors.detail}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-6'>
+                <label class="form-label fw-bold small">Ảnh sản phẩm</label>
+                <input type="file" name="images" multiple class="form-control">
+                {{#if errors.images}}
+                    <div class='form-error'>{{errors.images}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-3 col-6'>
+                <label class="form-label fw-bold small">Ảnh sản phẩm</label>
+                <input type="file" name="image_main" class="form-control">
+                {{#if errors.image_main}}
+                    <div class='form-error'>{{errors.image_main}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-6 d-flex align-items-center'>
+                <label class="form-label fw-bold small me-1" style="margin-bottom:0;">Sản phẩm nổi bật</label>
+                <input type="checkbox" name="isPopular" class="form-check-input"  style="margin-top:0;">
+            </div>
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Thêm sản phẩm</button>
+        </div>
+    </form>
+</div>
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('detail');
+    CKEDITOR.replace('description');
+    $('select').selectpicker();
+</script>

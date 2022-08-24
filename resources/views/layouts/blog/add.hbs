@@ -1,0 +1,83 @@
+<div class="blog">
+    <h3 class='text-center mb-3'>Thêm bài viết</h3>
+    <form action="/blog/store-add" method="post" style='width:80%;' enctype="multipart/form-data" class='mx-auto form-add'>
+        {{#if success}}
+        <div class="alert alert-success" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+        {{/if}}
+        <div class='d-flex align-items-center mb-2'>
+            <div class='me-1'>
+                <a href='/blog' class='btn btn-primary small'>Danh sách bài viết</a>
+            </div>
+            <div>
+                <a href="/blog/add" class="btn btn-success small">Reset</a>
+            </div>
+        </div>
+        <div class='mb-2'>
+            <label class='form-label  fw-bold'>Tiêu đề bài viết</label>
+            <input type='text' name='title' class='form-control' value="{{#if data.title}}{{data.title}}{{/if}}"/>
+            {{#if errors.title}}
+                <div class='form-error'>{{errors.title}}</div>
+            {{/if}}
+        </div>
+        <div class="row">
+            <div class='mb-2 col-6'>
+                <label class='form-label  fw-bold'>Tác giả bài viết</label>
+                <input type='text' name='author' class='form-control' value="{{#if data.author}}{{data.author}}{{/if}}"/>
+                {{#if errors.author}}
+                    <div class='form-error'>{{errors.author}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-6'>
+                <label class='form-label  fw-bold'>Danh mục bài viết</label>
+                <select name="blog_category" class="form-select">
+                    <option value="">--Chọn--</option>
+                    {{#each blogCategories}}
+                    <option value="{{this._id}}">{{this.name}}</option>
+                    {{/each}}
+                </select>
+                {{#if errors.blog_category}}
+                    <div class='form-error'>{{errors.blog_category}}</div>
+                {{/if}}
+            </div>
+        </div>
+        <div class='mb-2'>
+            <label class='form-label  fw-bold'>Mô tả bài viết</label>
+            <textarea name="description" cols="30" rows="3" class="form-control"
+            >{{#if data.description}}{{data.description}}{{/if}}</textarea>
+            {{#if errors.description}}
+                <div class='form-error'>{{errors.description}}</div>
+            {{/if}}
+        </div>
+        <div class='mb-2'>
+            <label class='form-label  fw-bold'>Nội dung bài viết</label>
+            <textarea name="content" cols="30" rows="3" class="form-control"
+            >{{#if data.content}}{{data.content}}{{/if}}</textarea>
+            {{#if errors.content}}
+                <div class='form-error'>{{errors.content}}</div>
+            {{/if}}
+        </div>
+        <div class="row">
+            <div class='mb-2 col-6'>
+                <label class='form-label  fw-bold'>Ảnh bài viết</label>
+                <input type="file" name="image" class="form-control">
+                {{#if errors.image}}
+                    <div class='form-error'>{{errors.image}}</div>
+                {{/if}}
+            </div>
+            <div class='mb-2 col-6 d-flex align-items-center'>
+                <label class="form-label fw-bold small me-1" style="margin-bottom:0;">Bài viết nổi bật</label>
+                <input type="checkbox" name="isPopular" class="form-check-input"  style="margin-top:0;">
+            </div>
+        </div>
+        <div class='form-button'>
+            <button type='submit' class='btn btn-primary'>Thêm bài viết</button>
+        </div>
+    </form>
+</div>
+<script src="/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>

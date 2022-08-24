@@ -1,0 +1,119 @@
+<div class='blog-category'>
+    <h3 class='text-center mb-3'>Danh sách cấp con mục bài viết</h3>
+    {{#if success}}
+        <div class='alert alert-success position-relative' role='alert'>
+            {{success}}
+            <span class='close-alert position-absolute'><i class='bi bi-x-circle-fill'></i></span>
+        </div>
+    {{/if}}
+    {{#if error}}
+        <div class='alert alert-danger' role='alert'>
+            {{error}}
+            <span class='close-alert position-absolute'><i class='bi bi-x-circle-fill'></i></span>
+        </div>
+    {{/if}}
+    <div class='d-flex justify-content-between mb-1'>
+        <div class='d-flex align-items-center'>
+            <div class='me-1'>
+                <a href='/blog-category' class='btn btn-success small'>
+                    Quay lại
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+            </div>
+            <div>
+                <a href='/blog-category/add-child/{{parentId}}' class='btn btn-primary small'>
+                    Thêm cấp con
+                    <i class="bi bi-plus-circle-fill"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {{#if childCategorires}}
+    <table class='table table-success'>
+        <thead>
+            <tr>
+                <th class='text-center border border-dark'>STT</th>
+                <th class='text-center border border-dark'>Tên cấp con</th>
+                <th class='text-center border border-dark'>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each childCategorires}}
+                <tr>
+                    <td class='text-center border border-dark'>{{sum @index 1}}</td>
+                    <td class='text-center border border-dark'>{{this.name}}</td>
+                    <td class='text-center border border-dark'>
+                        <a href='/blog-category/edit/{{this._id}}' class='btn btn-primary small'>
+                            Sửa
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <button
+                            href='#'
+                            class='btn btn-danger small'
+                            data-bs-toggle='modal'
+                            data-bs-target='#deleteModal'
+                            data-id='{{this._id}}'
+                            data-parent='{{../parentId}}'
+                        >Xoá<i class="bi bi-trash-fill"></i></button>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <div class='text-center'>
+        Chưa có cấp con nào 
+        <a href="/blog-category/add-child/{{parentId}}" class="text-decoration-underline" style="color:blue;">
+            Thêm cấp con
+            <i class="bi bi-plus-circle-fill"></i>
+        </a>
+    </div>
+    {{/if}}
+</div>
+<!-- delete form -->
+<form action="" method="post" id="delete-form"></form>
+<!-- delete Modal -->
+<div
+    class='modal fade'
+    id='deleteModal'
+    tabindex='-1'
+    aria-labelledby='exampleModalLabel'
+    aria-hidden='true'
+>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title' id='exampleModalLabel'>Xoá loại sản phẩm</h5>
+                <button
+                    type='button'
+                    class='btn-close'
+                    data-bs-dismiss='modal'
+                    aria-label='Close'
+                ></button>
+            </div>
+            <div class='modal-body'>
+                Bạn có chắc chắn muốn xoá cấp con này???
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-danger' id="delete-btn">Xoá bỏ</button>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteModal = document.getElementById('deleteModal')
+    const deleteForm = document.getElementById('delete-form');
+    const deleteBtn = document.getElementById('delete-btn');
+    deleteModal.addEventListener('show.bs.modal', function (event) { 
+        const button = event.relatedTarget 
+        const deleteId = button.dataset.id;
+        const parent = button.dataset.parent;   
+
+        deleteBtn.onclick = () => {
+            deleteForm.action = '/blog-category/store-delete-child/' + deleteId + '/' + parent + '?_method=DELETE';
+            deleteForm.submit();
+        }   
+    })
+</script>

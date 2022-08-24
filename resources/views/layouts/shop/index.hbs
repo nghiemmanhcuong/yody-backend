@@ -1,0 +1,134 @@
+<div class='shop'>
+    <h3 class='text-center mb-3'>Danh sách cửa hàng</h3>
+    {{#if success}}
+        <div class="alert alert-success position-relative" role="alert">
+            {{success}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+    {{/if}}
+    {{#if error}}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+            <span class="close-alert position-absolute"><i class="bi bi-x-circle-fill"></i></span>
+        </div>
+    {{/if}}
+    <div class='d-flex justify-content-between mb-1'>
+        <div class='d-flex align-items-center'>
+            <div class='me-1'>
+                <a href='/shop/add' class='btn btn-primary small'>
+                    Thêm cửa hàng
+                    <i class="bi bi-plus-circle-fill"></i>
+                </a>
+            </div>
+            <div>
+                <a href='/shop' class='btn btn-success small'>
+                    Reset
+                    <i class="bi bi-arrow-repeat"></i>
+                </a>
+            </div>
+        </div>
+        <div class='d-flex align-items-center'>
+            <form class='me-1 d-flex align-items-center'>
+                <input
+                    type='text'
+                    name='keyword'
+                    placeholder='Tên của hàng...'
+                    class='form-control small'
+                />
+                <button class='btn btn-primary small ms-1'>Tìm kiếm</button>
+            </form>
+            <div class='me-1'>
+                <select name='' id='filter' class='form-select small'>
+                    <option value='/product'>Sắp xếp</option>
+                    <option {{#iq2 field 'name' criteria '1'}}selected{{/iq2}} value="?field=name&criteria=1">Tên của hàng: A-Z</option>
+                    <option {{#iq2 field 'name' criteria '-1'}}selected{{/iq2}} value="?field=name&criteria=-1">Tên của hàng: Z-A</option>
+                    <option {{#iq2 field 'createdAt' criteria '1'}}selected{{/iq2}} value="?field=createdAt&criteria=1">Mới nhất</option>
+                    <option {{#iq2 field 'createdAt' criteria '-1'}}selected{{/iq2}} value="?field=createdAt&criteria=-1">Cũ nhất</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <table class='table table-success'>
+        <thead>
+            <tr>
+                <th class='text-center border border-dark'>STT</th>
+                <th class='text-center border border-dark'>Tên cửa hàng</th>
+                <th class='text-center border border-dark'>Địa chỉ</th>
+                <th class='text-center border border-dark'>Số điện thoại</th>
+                <th class='text-center border border-dark'>Tỉnh thành</th>
+                <th class='text-center border border-dark'>Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each shops}}
+                <tr>
+                    <td class='text-center border border-dark'>{{sum @index 1}}</td>
+                    <td class='text-center border border-dark'>{{this.shopName}}</td>
+                    <td class='text-center border border-dark'>{{this.address}}</td>
+                    <td class='text-center border border-dark'>{{this.phone}}</td>
+                    <td class='text-center border border-dark'>{{this.province}}</td>
+                    <td class='text-center border border-dark'>
+                        <a href='/shop/edit/{{this._id}}' class='btn btn-primary small'>
+                            Sửa
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a
+                            href='#'
+                            class='btn btn-danger small'
+                            data-bs-toggle='modal'
+                            data-bs-target='#deleteModal'
+                            data-id='{{this._id}}'
+                        >Xoá<i class="bi bi-trash-fill"></i></a>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{> pagination}}
+</div>
+<!-- delete form -->
+<form action="" method="post" id="delete-form"></form>
+<!-- delete Modal -->
+<div
+    class='modal fade'
+    id='deleteModal'
+    tabindex='-1'
+    aria-labelledby='exampleModalLabel'
+    aria-hidden='true'
+>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <h5 class='modal-title' id='exampleModalLabel'>Xoá cửa hàng</h5>
+                <button
+                    type='button'
+                    class='btn-close'
+                    data-bs-dismiss='modal'
+                    aria-label='Close'
+                ></button>
+            </div>
+            <div class='modal-body'>
+                Bạn có chắc chắn muốn xoá cửa hàng này???
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-danger' id="delete-btn">Xoá bỏ</button>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const deleteModal = document.getElementById('deleteModal')
+    const deleteForm = document.getElementById('delete-form');
+    const deleteBtn = document.getElementById('delete-btn');
+    deleteModal.addEventListener('show.bs.modal', function (event) { 
+        const button = event.relatedTarget 
+        const deleteId = button.dataset.id;
+
+        deleteBtn.onclick = () => {
+            deleteForm.action = '/shop/store-delete/' + deleteId + '?_method=DELETE';
+            deleteForm.submit();
+        }
+    })
+</script>

@@ -1,0 +1,77 @@
+.table {
+    font-size: 13px;
+}
+
+.btn.small {
+    font-size: 12px;
+    padding: 3px 5px;
+    border-radius:2px;
+    min-width:max-content;
+}
+
+.form-select {
+    min-width:200px;
+}
+
+.form-select:focus,
+.form-control:focus {
+    box-shadow: 0 0 0 0.05rem rgb(13 110 253 / 25%);
+}
+
+.form-select.small,
+.form-control.small {
+    padding: 3px 5px;
+    font-size: 13px;
+    border-radius:3px;
+}
+
+.form-select.medium,
+.form-control.medium {
+    padding: 7px 5px;
+    font-size: 13px;
+    border-radius:3px;
+}
+
+.form-label {
+    font-size: 13px;
+}
+
+.form-label.small {
+    font-size: 11px;
+}
+
+.alert {
+    font-size: 13px;
+    padding: 0.6rem 1.5rem;
+    width: max-content;
+}
+
+.btn-check:focus+.btn-danger, .btn-danger:focus {
+    box-shadow: 0 0 0 0.05rem rgb(225 83 97 / 50%);
+}
+
+.btn-check:focus+.btn-secondary, .btn-secondary:focus {
+    box-shadow: 0 0 0 0.05rem rgb(130 138 145 / 50%)
+}
+
+.btn-check:focus+.btn-success, .btn-success:focus {
+    box-shadow: 0 0 0 0.05rem rgb(60 153 110 / 50%);
+}
+
+.btn-check:focus+.btn-primary, .btn-primary:focus {
+    box-shadow: 0 0 0 0.05rem rgb(49 132 253 / 50%);
+}
+
+.filter-option {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    font-size: 13px;
+}
+
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+    width: 100%;
+}
+
+.dropdown-menu.inner.show{
+    font-size: 12px;
+}

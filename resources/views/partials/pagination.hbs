@@ -1,0 +1,21 @@
+<nav aria-label='navigation' class="d-flex justify-content-end">
+    <ul class='pagination'>
+        {{#paginate pagination type="previous"}} 
+        <li class='page-item {{#if disabled}}disabled{{/if}}'>
+            <a class='page-link' href='{{../href}}{{n}}' aria-label='Next'>
+                <span aria-hidden='true'>&laquo;</span>
+            </a>
+        </li>
+        {{/paginate}}
+        {{#paginate pagination type="middle" limit="7"}}
+        <li class='page-item {{#if active}}active{{/if}}'><a class='page-link' href='{{../href}}{{n}}'>{{n}}</a></li>
+        {{/paginate}}  
+        {{#paginate pagination type="next"}} 
+        <li class='page-item {{#if disabled}}disabled{{/if}}'>
+            <a class='page-link' href='{{../href}}{{n}}' aria-label='Next'>
+                <span aria-hidden='true'>&raquo;</span>
+            </a>
+        </li>
+        {{/paginate}}
+    </ul>
+</nav>
