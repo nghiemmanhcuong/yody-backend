@@ -1,1 +1,1 @@
-web: nom run start
+web: npm run start
