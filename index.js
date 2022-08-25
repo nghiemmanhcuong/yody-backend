@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const handlebars = require('express-handlebars');
@@ -42,7 +42,22 @@ const contactApiRoute = require('./routes/api/contact.route');
 const productEvaluateApiRoute = require('./routes/api/product-evaluate.route');
 
 const app = express();
-const POST = 5003;
+const post = process.env.POST || 5003;
+
+// config
+dotenv.config();
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'resources/public')));
+app.use(express.static(path.join(__dirname, '/')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
+// app.use(morgan('combined'));
+app.use(expressSession({secret: 'max', saveUninitialized: false, resave: false}));
+app.use(methodOverride('_method'));
+
+// connect database
+connectDB();
 
 // template engine
 app.engine(
@@ -102,20 +117,6 @@ app.engine(
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'resources/views'));
 
-// config
-dotenv.config();
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'resources/public')));
-app.use(express.static(path.join(__dirname, '/')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors());
-app.use(morgan('combined'));
-app.use(expressSession({secret: 'max', saveUninitialized: false, resave: false}));
-app.use(methodOverride('_method'));
-
-// connect database
-connectDB();
 
 // routers
 app.use('/', homeRoute);
@@ -149,6 +150,6 @@ app.use('/api/user', userApiRoute);
 app.use('/api/contact', contactApiRoute);
 app.use('/api/product-evaluate', productEvaluateApiRoute);
 
-app.listen(POST, () => {
-    console.log('server runing in post ' + POST);
+app.listen(post, () => {
+    console.log('server runing in post ' + post);
 });
